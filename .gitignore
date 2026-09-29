@@ -1,0 +1,3 @@
+venv
+shop_api/db.sqlite3
+shop_api/shop_api/__pycache__
