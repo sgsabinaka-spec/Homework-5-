@@ -1,38 +1,34 @@
-from django.shortcuts import render
 from rest_framework import generics
 from .models import Category, Product, Review
 from .serializers import CategorySerializer, ProductSerializer, ReviewSerializer, ProductReviewSerializer
 
-# Вьюхи для категорий
-class CategoryListAPIView(generics.ListAPIView):
+class CategoryListAPIView(generics.ListCreateAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
 
-class CategoryDetailAPIView(generics.RetrieveAPIView):
+class CategoryDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
     lookup_field = 'id'
 
-# Вьюхи для продуктов
-class ProductListAPIView(generics.ListAPIView):
+class ProductListAPIView(generics.ListCreateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
 
-class ProductDetailAPIView(generics.RetrieveAPIView):
+class ProductDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
-    lookup_field = 'id'
-
-# Вьюхи для отзывов
-class ReviewListAPIView(generics.ListAPIView):
-    queryset = Review.objects.all()
-    serializer_class = ReviewSerializer
-
-class ReviewDetailAPIView(generics.RetrieveAPIView):
-    queryset = Review.objects.all()
-    serializer_class = ReviewSerializer
     lookup_field = 'id'
 
 class ProductReviewListAPIView(generics.ListAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductReviewSerializer
+
+class ReviewListAPIView(generics.ListCreateAPIView):
+    queryset = Review.objects.all()
+    serializer_class = ReviewSerializer
+
+class ReviewDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Review.objects.all()
+    serializer_class = ReviewSerializer
+    lookup_field = 'id'
