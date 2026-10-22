@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework import generics
 from .models import Category, Product, Review
-from .serializers import CategorySerializer, ProductSerializer, ReviewSerializer
+from .serializers import CategorySerializer, ProductSerializer, ReviewSerializer, ProductReviewSerializer
 
 # Вьюхи для категорий
 class CategoryListAPIView(generics.ListAPIView):
@@ -32,3 +32,7 @@ class ReviewDetailAPIView(generics.RetrieveAPIView):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
     lookup_field = 'id'
+
+class ProductReviewListAPIView(generics.ListAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductReviewSerializer
