@@ -1,3 +1,10 @@
-venv
-shop_api/db.sqlite3
-shop_api/shop_api/__pycache__
+
+venv/
+env/
+
+.env
+
+db.sqlite3
+
+__pycache__/
+*.pyc
