@@ -6,6 +6,7 @@ from rest_framework import status
 from django.shortcuts import get_object_or_404
 from .models import Category, Product, Review
 from .serializers import CategorySerializer, ProductSerializer, ReviewSerializer, ProductReviewSerializer
+from common.validators import validate_user_age
 
 class CategoryListAPIView(APIView):
     def get(self, request):
@@ -49,7 +50,10 @@ class CategoryDetailAPIView(APIView):
 class ProductListAPIView(generics.ListCreateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
-    permission_classes = [IsModerator]
+
+    def perform_create(self, serializer):
+        validate_user_age(self.request)
+        serializer.save()
 
 class ProductDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Product.objects.all()

@@ -8,7 +8,7 @@ class RegisterSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = User
-        fields = ('email', 'password', 'phone_number')
+        fields = ('email', 'password', 'phone_number', 'birthdate')
 
     def validate_phone_number(self, value):
         if value and not str(value).startswith('996'):
@@ -37,3 +37,12 @@ class LoginSerializer(serializers.Serializer):
         
         data['user'] = user
         return data
+
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+
+class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
+    @classmethod
+    def get_token(cls, user):
+        token = super().get_token(user)
+        token['birthdate'] = str(user.birthdate) if user.birthdate else None
+        return token
