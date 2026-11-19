@@ -6,4 +6,6 @@ urlpatterns = [
     path('register/', views.RegisterAPIView.as_view()),
     path('login/', views.CustomTokenObtainPairView.as_view()),
     path('token/refresh/', TokenRefreshView.as_view()),
+    path('google-url/', views.GoogleLoginURLAPIView.as_view()),
+    path('google-login/', views.GoogleLoginCallbackAPIView.as_view()),
 ]

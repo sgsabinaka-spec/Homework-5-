@@ -25,17 +25,30 @@ class CustomUserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
+    REGISTRATION_SOURCES = (
+        ('local', 'Local'),
+        ('google', 'Google'),
+        ('facebook', 'Facebook'),
+    )
+
     email = models.EmailField(unique=True)
+    first_name = models.CharField(max_length=150, blank=True, null=True)
+    last_name = models.CharField(max_length=150, blank=True, null=True)
     phone_number = models.CharField(max_length=15, blank=True, null=True)
     birthdate = models.DateField(blank=True, null=True)
-    
+    registration_source = models.CharField(
+        max_length=20,
+        choices=REGISTRATION_SOURCES,
+        default='local'
+    )
+
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
 
     objects = CustomUserManager()
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['phone_number'] 
+    REQUIRED_FIELDS = ['phone_number']
 
     def __str__(self):
         return self.email
